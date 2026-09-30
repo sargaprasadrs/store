@@ -1,5 +1,5 @@
 /* ============================================================
-   BazaarLite — catalog.js (rendering engine)
+   Utility Store — catalog.js (rendering engine)
    • Amazon-style homepage category grid — ONLY non-empty categories
      (derived from product data; add first product → card appears)
    • Product cards, deals/new rows, PLP with filters+sort, PDP
@@ -212,7 +212,7 @@
       return;
     }
 
-    document.title = `${p.title} — ${ui().money(p.price)} | BazaarLite`;
+    document.title = `${p.title} — ${ui().money(p.price)} | Utility Store`;
     const off = offPct(p);
 
     // gallery

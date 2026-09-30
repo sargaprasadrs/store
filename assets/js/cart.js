@@ -1,5 +1,5 @@
 /* ============================================================
-   BazaarLite — cart.js ("Buy list")
+   Utility Store — cart.js ("Buy list")
    No payment on this site: the list collects products; checkout
    happens on Meesho/Amazon via affiliate click-outs.
    Requires: data.js, affiliate.js, ui.js

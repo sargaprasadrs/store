@@ -1,5 +1,5 @@
 /* ============================================================
-   BazaarLite — ui.js (shell components, search, drawer, toasts)
+   Utility Store — ui.js (shell components, search, drawer, toasts)
    Inline SVG icons per UtilixVerse DESIGN.md (no emoji in controls).
    Requires: config.js, data.js, cart.js
    ============================================================ */
@@ -70,7 +70,7 @@
     inner.innerHTML = `
       <a class="logo" href="./index.html">
         <span class="logo-mark">${icon("tag", 20)}</span>
-        <span>${cfg.siteName || "BazaarLite"}</span>
+        <span>${cfg.siteName || "Utility Store"}</span>
       </a>
       <div class="search-wrap">
         <span class="search-icon">${icon("search", 15)}</span>

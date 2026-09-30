@@ -1,4 +1,4 @@
-# BazaarLite — Free Review Blog + Affiliate Catalog
+# Utility Store — Free Review Blog + Affiliate Catalog
 
 A dark, Vercel-inspired storefront (per UtilixVerse design tokens) that looks like a modern
 shopping site, runs **100% free** on GitHub Pages, and monetizes via **Meesho / Amazon.in
@@ -6,15 +6,15 @@ affiliate links**. No servers, no databases, no payment handling.
 
 ## ⚡ 15-minute setup
 
-1. **Create a public GitHub repo** named `bazaarlite` and push this folder to it.
+1. **Create a public GitHub repo** named `utility-store` and push this folder to it.
 2. **GitHub Pages:** repo → Settings → Pages → Source: **GitHub Actions**. (The included
    workflow builds and deploys on every push.)
 3. **Point the config at your repo** (2 small edits):
    - `admin/config.yml` → replace both `CHANGE-ME` occurrences with your GitHub username.
    - `assets/js/config.js` → set `owner` and `repo` (leave empty to auto-detect on `*.github.io`).
    - Optional: repo → Settings → Secrets and variables → Actions → variable `SITE_URL`
-     (e.g. `https://you.github.io/bazaarlite`) to enable sitemap/canonical URLs.
-4. **CMS login:** visit `https://you.github.io/bazaarlite/admin/` → sign in with GitHub →
+     (e.g. `https://you.github.io/utility-store`) to enable sitemap/canonical URLs.
+4. **CMS login:** visit `https://you.github.io/utility-store/admin/` → sign in with GitHub →
    authorize → paste a **fine-grained Personal Access Token** (Contents: Read & write on this
    repo only) when the device-flow prompt appears.
 5. **Monetization:** sign up at [EarnKaro](https://earnkaro.com) (free, no KYC) → create tracked

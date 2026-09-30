@@ -1,4 +1,4 @@
-# Project "BazaarLite" — Free Review Blog + Affiliate Catalog (Amazon-style)
+# Project "Utility Store" — Free Review Blog + Affiliate Catalog (Amazon-style)
 
 > **Goal:** A product-review blog + curated catalog that *looks like Amazon*, costs **₹0/month**,
 > and boosts affiliate earnings on **Meesho / Amazon.in**. Reviews and "ad-style" deal posts drive
@@ -74,7 +74,7 @@ repo at runtime** (via CDN, not the API), instead of from files baked in at buil
 ## 3. Repository Structure
 
 ```
-bazaarlite/
+utility-store/
 ├── index.html                 # Home: hero carousel, Amazon-style category grid, deals row, latest reviews
 ├── category.html              # ?c=<slug> → PLP: grid, filters, sort (reads live data)
 ├── product.html               # ?p=<slug> → PDP rendered client-side
@@ -174,7 +174,7 @@ Updating an affiliate link in the CMS = live on the site in minutes. No deploy, 
 ## 5. Phased Build Plan
 
 ### Phase 0 — Accounts & Prerequisites (≈45 min)
-- [ ] GitHub account + **public** repo `bazaarlite` (public ⇒ free Actions).
+- [ ] GitHub account + **public** repo `utility-store` (public ⇒ free Actions).
 - [ ] Fine-grained PAT (Contents read/write on this repo only) for CMS login.
 - [ ] **EarnKaro** signup (free) → generate tracked Meesho links; note link format.
 - [ ] **Amazon Associates India** application (start the 180-day clock early).

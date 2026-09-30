@@ -1,5 +1,5 @@
 /* ============================================================
-   BazaarLite — affiliate.js
+   Utility Store — affiliate.js
    Builds tracked outbound links ( EarnKaro / Cuelinks / raw ),
    logs click-outs locally (privacy-friendly), and renders the
    "Buy" CTA buttons + price-comparison block.

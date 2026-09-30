@@ -1,5 +1,5 @@
 /* ============================================================
-   BazaarLite — post.js (Markdown renderer + inline product cards)
+   Utility Store — post.js (Markdown renderer + inline product cards)
    marked.js from CDN renders the review body; we inject affiliate
    product cards for every slug listed in the post frontmatter.
    Requires: data.js, ui.js, catalog.js, affiliate.js
@@ -72,7 +72,7 @@
       return;
     }
 
-    document.title = `${post.title} | BazaarLite Reviews`;
+    document.title = `${post.title} | Utility Store Reviews`;
 
     // verdict widget + pros/cons
     const top = document.getElementById("article-top");

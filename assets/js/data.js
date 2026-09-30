@@ -1,5 +1,5 @@
 /* ============================================================
-   BazaarLite — data.js (Live Data Layer)
+   Utility Store — data.js (Live Data Layer)
    ------------------------------------------------------------
    No-redeploy architecture: content is read at RUNTIME from the
    GitHub repo through free CDNs:
