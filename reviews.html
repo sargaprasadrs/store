@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Reviews — BazaarLite</title>
+  <meta name="description" content="Hands-on product reviews, top-N listicles and deal alerts."/>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <link rel="stylesheet" href="assets/css/main.css"/>
+</head>
+<body>
+  <main class="container">
+    <h1 class="page-title">Reviews &amp; buying guides</h1>
+    <p class="page-sub">Hands-on reviews, listicles and deal alerts — every pick links to a verified store page.</p>
+    <div id="reviews-root"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="logo" href="./index.html" style="margin-bottom:.5rem">BazaarLite</a>
+        <p>Curated catalog + honest product reviews. Checkout happens on Meesho &amp; Amazon.in.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="./category.html">All products</a>
+        <a href="./category.html?c=__deals">Deals</a>
+        <a href="./index.html">Home</a>
+      </div>
+      <div class="footer-col">
+        <h4>Trust</h4>
+        <a href="./about.html#disclosure">Affiliate disclosure</a>
+        <a href="./about.html#privacy">Privacy</a>
+        <a href="./admin/">Editor login</a>
+      </div>
+    </div>
+    <div class="footer-disclosure" id="footer-disclosure"></div>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/affiliate.js"></script>
+  <script src="assets/js/catalog.js"></script>
+  <script src="assets/js/post.js"></script>
+  <script>
+    window.BL.ui.renderHeader("reviews");
+    window.BL.ui.updateCartBadge();
+    document.getElementById("footer-disclosure").textContent = window.BL.affiliate.DISCLOSURE;
+    window.BL.post.renderPostList(document.getElementById("reviews-root"));
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Shop — BazaarLite</title>
+  <meta name="description" content="Browse all curated products by category, price and rating."/>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <link rel="stylesheet" href="assets/css/main.css"/>
+</head>
+<body>
+  <main class="container">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="./index.html">Home</a><span class="sep">/</span><span id="crumb-cat">All</span>
+    </nav>
+    <h1 class="page-title" id="page-title">All products</h1>
+    <p class="page-sub" id="page-sub"></p>
+
+    <div class="toolbar">
+      <span class="result-count" id="result-count">Loading…</span>
+      <div class="chip-row" id="cat-chips" style="display:flex;gap:.4rem;flex-wrap:wrap"></div>
+      <select class="chip" id="rating-select" aria-label="Minimum rating">
+        <option value="0">Any rating</option>
+        <option value="3">3★ &amp; up</option>
+        <option value="4">4★ &amp; up</option>
+        <option value="4.5">4.5★ &amp; up</option>
+      </select>
+      <select class="chip" id="sort-select" aria-label="Sort products">
+        <option value="new">Newest</option>
+        <option value="price-asc">Price: Low → High</option>
+        <option value="price-desc">Price: High → Low</option>
+        <option value="rating">Top rated</option>
+        <option value="discount">Biggest discount</option>
+      </select>
+    </div>
+
+    <div class="grid-products" id="plp-grid"></div>
+  </main>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/affiliate.js"></script>
+  <script src="assets/js/catalog.js"></script>
+  <script>
+    window.BL.ui.renderHeader("shop");
+    window.BL.ui.updateCartBadge();
+    window.BL.catalog.renderPLP();
+  </script>
+</body>
+</html>

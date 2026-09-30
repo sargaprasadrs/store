@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>About — BazaarLite</title>
+  <meta name="description" content="Who we are, how we make money, and how your data is handled."/>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <link rel="stylesheet" href="assets/css/main.css"/>
+</head>
+<body>
+  <main class="container">
+    <article class="article">
+      <h1 class="page-title">About BazaarLite</h1>
+      <p class="page-sub">A curated storefront + review blog. Zero inventory, zero payment handling.</p>
+
+      <div class="a-body">
+        <h2>What is this site?</h2>
+        <p>BazaarLite is a curated catalog of products from Meesho and Amazon.in, combined with honest,
+        hands-on reviews. We pick, compare and price-check — when you're ready to buy, you click through
+        to the store and <b>checkout, payment, delivery and returns are handled entirely by the store</b>.</p>
+
+        <h2 id="disclosure">Affiliate disclosure</h2>
+        <p>Some links on this site are affiliate links. If you buy through them, we may earn a commission
+        <b>at no extra cost to you</b>. As an Amazon Associate, we earn from qualifying purchases.
+        This never affects our picks or our verdict scores — bad products get bad reviews.</p>
+
+        <h2 id="privacy">Privacy</h2>
+        <p>We don't run accounts, don't ask for personal data, and don't use tracking cookies.
+        Your buy list and product clicks are stored <b>only in your browser's localStorage</b> and
+        never leave your device. outbound link clicks are counted locally to improve the catalog.</p>
+
+        <h2>For editors</h2>
+        <p>Site content is managed through a private admin dashboard at
+        <a href="./admin/">/admin</a>. Every change is version-controlled in our public repository.</p>
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-disclosure" id="footer-disclosure"></div>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/affiliate.js"></script>
+  <script>
+    window.BL.ui.renderHeader("about");
+    window.BL.ui.updateCartBadge();
+    document.getElementById("footer-disclosure").textContent = window.BL.affiliate.DISCLOSURE;
+  </script>
+</body>
+</html>

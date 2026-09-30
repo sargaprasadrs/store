@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Review — BazaarLite</title>
+  <meta name="description" content="In-depth product review with verdict score and buy links."/>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml"/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <link rel="stylesheet" href="assets/css/main.css"/>
+</head>
+<body>
+  <main class="container">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="./index.html">Home</a><span class="sep">/</span>
+      <a href="./reviews.html">Reviews</a><span class="sep">/</span>
+      <span id="crumb-post">Article</span>
+    </nav>
+    <article class="article" id="article-root">
+      <span class="po-type" id="article-type"></span>
+      <h1 id="article-title" class="skeleton" style="height:2rem;width:80%">&nbsp;</h1>
+      <div class="po-meta" id="article-meta"></div>
+      <div id="article-top"></div>
+      <img id="article-hero" class="a-hero" alt="" style="display:none"/>
+      <div class="a-body" id="article-body"></div>
+      <div class="inline-products" id="inline-products"></div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-disclosure" id="footer-disclosure"></div>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/affiliate.js"></script>
+  <script src="assets/js/catalog.js"></script>
+  <script src="assets/js/post.js"></script>
+  <script>
+    window.BL.ui.renderHeader("reviews");
+    window.BL.ui.updateCartBadge();
+    document.getElementById("footer-disclosure").textContent = window.BL.affiliate.DISCLOSURE;
+
+    window.BL.post.renderArticle().then(() => {
+      const slug = new URLSearchParams(location.search).get("post");
+      const post = window.BL.data.getPost(slug);
+      if (post) {
+        document.getElementById("crumb-post").textContent = post.title;
+        const t = document.getElementById("article-type");
+        if (t) t.textContent = post.type;
+        const m = document.getElementById("article-meta");
+        if (m) m.innerHTML = `<span>${window.BL.ui.fmtDate(post.added)}</span>`;
+        const ti = document.getElementById("article-title");
+        if (ti) { ti.textContent = post.title; ti.classList.remove("skeleton"); }
+      }
+    });
+  </script>
+</body>
+</html>

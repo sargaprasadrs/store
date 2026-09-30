@@ -1,0 +1,281 @@
+# ============================================================
+# BazaarLite CMS — Sveltia CMS configuration
+# (compatible with Decap CMS as a fallback backend)
+# ============================================================
+
+# Where the site is published — used by the CMS for previews & links
+site_url: https://CHANGE-ME.github.io/bazaarlite
+logo_url: https://CHANGE-ME.github.io/bazaarlite/assets/img/favicon.svg
+
+backend:
+  # Sveltia CMS supports GitHub device-flow login with a fine-grained
+  # Personal Access Token (no auth worker needed). For multi-editor
+  # OAuth later, deploy sveltia-cms-auth on Cloudflare Workers and set:
+  # auth_endpoint: auth
+  name: github
+  repo: CHANGE-ME/bazaarlite
+  branch: main
+
+# Drafts become pull requests; "Publish" in the CMS merges them.
+publish_mode: editorial_workflow
+
+media_folder: media/products
+public_path: /media/products
+site_media_folder: static/media
+site_url_public_path: /media
+
+# Where content lives in the repo
+collections:
+  # ----------------------------------------------------------
+  - name: products
+    label: Products
+    label_singular: Product
+    folder: products
+    create: true
+    slug: "{{slug}}"
+    preview_path: "product.html?p={{slug}}"
+    editor:
+      preview: false
+    sortable_fields: [title, added, price]
+    summary: "{{title}} — ₹{{price}}"
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Slug (used in URL — leave unchanged after publishing)
+        name: slug
+        widget: string
+        hint: lowercase-with-dashes
+      - label: Category
+        name: category
+        widget: relation
+        collection: categories
+        display_fields: [name]
+        search_fields: [name]
+        value_field: slug
+        required: true
+      - label: Price (INR — as shown on store)
+        name: price
+        widget: number
+        value_type: int
+        min: 0
+      - label: MRP (original price, for the strike-through)
+        name: mrp
+        widget: number
+        value_type: int
+        min: 0
+        required: false
+      - label: Rating (0–5)
+        name: rating
+        widget: number
+        value_type: float
+        min: 0
+        max: 5
+        required: false
+      - label: Number of ratings
+        name: reviews
+        widget: number
+        value_type: int
+        required: false
+      - label: Product images
+        name: images
+        widget: list
+        field: { label: Image, name: image, widget: image, media_folder: /media/products }
+        required: false
+      - label: Colours (visual options on the product page)
+        name: colors
+        widget: list
+        required: false
+      - label: Sizes
+        name: sizes
+        widget: list
+        required: false
+      - label: Buy link — Meesho (EarnKaro-tracked)
+        name: buy_meesho
+        widget: string
+        required: false
+        hint: Generate on earnkaro.com → paste here
+      - label: Buy link — Amazon.in (Associates-tracked)
+        name: buy_amazon
+        widget: string
+        required: false
+      - label: Amazon price (for the compare box, optional)
+        name: buy_amazon_price
+        widget: number
+        value_type: int
+        required: false
+      - label: Featured
+        name: featured
+        widget: boolean
+        default: false
+        required: false
+      - label: Deal of the day
+        name: deal
+        widget: boolean
+        default: false
+      - label: Stock status
+        name: stock_status
+        widget: select
+        options: [in_stock, limited, unavailable]
+        default: in_stock
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+      - label: Date added
+        name: added
+        widget: datetime
+        date_format: "YYYY-MM-DD"
+        time_format: false
+      - label: Description (shown on cards and product page)
+        name: body
+        widget: text
+
+  # ----------------------------------------------------------
+  - name: categories
+    label: Categories
+    label_singular: Category
+    folder: categories
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - label: Name
+        name: name
+        widget: string
+      - label: Slug (URL fragment — leave unchanged after publishing)
+        name: slug
+        widget: string
+        hint: lowercase-with-dashes
+      - label: Icon (emoji shown on the category card)
+        name: icon
+        widget: string
+        required: false
+      - label: Short blurb
+        name: blurb
+        widget: text
+        required: false
+      - label: Hide on homepage
+        name: hide
+        widget: boolean
+        default: false
+        required: false
+        hint: Category card is hidden on home regardless of products
+
+  # ----------------------------------------------------------
+  - name: posts
+    label: Reviews & Posts
+    label_singular: Post
+    folder: posts
+    create: true
+    slug: "{{slug}}"
+    preview_path: "post.html?post={{slug}}"
+    editor:
+      preview: false
+    sortable_fields: [added, title]
+    summary: "{{title}} ({{type}})"
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Slug
+        name: slug
+        widget: string
+        hint: lowercase-with-dashes
+      - label: Type
+        name: type
+        widget: select
+        options: [review, listicle, deal-alert, comparison]
+        default: review
+      - label: Hero image
+        name: hero
+        widget: image
+        media_folder: /media/posts
+        required: false
+      - label: Verdict score (0–5, shown as a badge)
+        name: verdict_score
+        widget: number
+        value_type: float
+        min: 0
+        max: 5
+        required: false
+      - label: Products featured in this post
+        name: products
+        widget: relation
+        collection: products
+        multiple: true
+        display_fields: [title]
+        search_fields: [title]
+        value_field: slug
+        required: false
+      - label: Pros
+        name: pros
+        widget: list
+        required: false
+      - label: Cons
+        name: cons
+        widget: list
+        required: false
+      - label: Affiliate note (overrides default disclosure)
+        name: affiliate_note
+        widget: string
+        required: false
+      - label: Date
+        name: added
+        widget: datetime
+        date_format: "YYYY-MM-DD"
+        time_format: false
+      - label: Article body (Markdown)
+        name: body
+        widget: markdown
+
+  # ----------------------------------------------------------
+  - name: banners
+    label: Hero Banners
+    label_singular: Banner
+    folder: banners
+    create: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - label: Headline
+        name: headline
+        widget: string
+      - label: Subtext
+        name: subtext
+        widget: text
+        required: false
+      - label: Link
+        name: link
+        widget: string
+        required: false
+      - label: Order (lower = earlier)
+        name: order
+        widget: number
+        value_type: int
+        default: 0
+
+  # ----------------------------------------------------------
+  - name: settings
+    label: Site Settings
+    files:
+      - name: site
+        label: Site
+        file: settings/site.md
+        fields:
+          - label: Site name
+            name: site_name
+            widget: string
+          - label: Tagline
+            name: tagline
+            widget: text
+          - label: Contact email
+            name: contact_email
+            widget: string
+            required: false
+          - label: Contact WhatsApp link
+            name: contact_whatsapp
+            widget: string
+            required: false

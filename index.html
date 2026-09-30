@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>BazaarLite — Smart picks. Honest reviews.</title>
+  <meta name="description" content="Curated products from Meesho & Amazon.in with honest reviews and the best prices. Updated live, no fluff."/>
+  <meta property="og:title" content="BazaarLite — Smart picks. Honest reviews."/>
+  <meta property="og:description" content="Curated products from Meesho & Amazon.in with honest reviews."/>
+  <meta property="og:type" content="website"/>
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <link rel="stylesheet" href="assets/css/main.css"/>
+</head>
+<body>
+  <!-- hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Smart picks. <span class="accent">Honest reviews.</span><br/>Best prices on Meesho &amp; Amazon.</h1>
+      <p>We test, compare and curate — you buy on the store you trust. Every deal is hand-picked and price-checked.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="#categories">Browse categories</a>
+        <a class="btn btn-outline btn-lg" href="./reviews.html">Read reviews</a>
+      </div>
+      <div class="hero-stats" id="hero-stats"></div>
+    </div>
+  </section>
+
+  <main class="container">
+    <!-- Amazon-style category grid (non-empty only) -->
+    <section class="section" id="categories">
+      <div class="section-head">
+        <h2 class="section-title">Shop by category</h2>
+      </div>
+      <div class="grid-cats" id="cat-grid"></div>
+    </section>
+
+    <!-- deals row -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Deals of the day</h2>
+        <a class="section-link" href="./category.html?c=__deals">View all →</a>
+      </div>
+      <div class="row-scroll" id="deals-row"></div>
+    </section>
+
+    <!-- new arrivals -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">New arrivals</h2>
+        <a class="section-link" href="./category.html">View all →</a>
+      </div>
+      <div class="row-scroll" id="new-row"></div>
+    </section>
+
+    <!-- latest reviews -->
+    <section class="section">
+      <div class="section-head">
+        <h2 class="section-title">Latest reviews</h2>
+        <a class="section-link" href="./reviews.html">All reviews →</a>
+      </div>
+      <div class="grid-posts" id="reviews-grid"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="logo" href="./index.html" style="margin-bottom:.5rem">BazaarLite</a>
+        <p>Curated catalog + honest product reviews. We link you to Meesho &amp; Amazon.in — checkout, delivery and returns are handled by the store.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="./category.html">All products</a>
+        <a href="./category.html?c=__deals">Deals of the day</a>
+        <a href="./reviews.html">Reviews</a>
+        <a href="./about.html">About us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Trust</h4>
+        <a href="./about.html#disclosure">Affiliate disclosure</a>
+        <a href="./about.html#privacy">Privacy</a>
+        <a href="./admin/">Editor login</a>
+      </div>
+    </div>
+    <div class="footer-disclosure" id="footer-disclosure"></div>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/affiliate.js"></script>
+  <script src="assets/js/catalog.js"></script>
+  <script>
+    window.BL.ui.renderHeader("home");
+    window.BL.ui.updateCartBadge();
+    document.getElementById("footer-disclosure").textContent = window.BL.affiliate.DISCLOSURE;
+
+    (async () => {
+      // hero stats
+      const { products, posts } = await window.BL.data.load();
+      const stats = document.getElementById("hero-stats");
+      if (stats) stats.innerHTML =
+        `<span><b>${products.length}</b> products curated</span>
+         <span><b>${window.BL.data.visibleCategories().length}</b> categories</span>
+         <span><b>${posts.length}</b> in-depth reviews</span>`;
+
+      window.BL.catalog.renderCategoryGrid(document.getElementById("cat-grid"));
+      window.BL.catalog.renderRow(document.getElementById("deals-row"), p => p.deal, 12);
+      window.BL.catalog.renderRow(document.getElementById("new-row"), () => true, 12);
+      window.BL.post.renderPostList(document.getElementById("reviews-grid"), 3);
+    })();
+  </script>
+</body>
+</html>
