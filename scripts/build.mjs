@@ -61,7 +61,7 @@ const visibleCats = categories.filter(c => c.hide !== "true" && productsIn(c.slu
 // ---------- 1. data/index.json snapshot ----------
 const snapshot = {
   generatedAt: new Date().toISOString(),
-  settings: { site_name: siteMd.site_name || "Utility Store", tagline: siteMd.tagline || "" },
+  settings: { site_name: siteMd.site_name || "UV Store", tagline: siteMd.tagline || "" },
   categories,
   products,
   posts
@@ -88,7 +88,7 @@ ${SITE ? `<link rel="canonical" href="${SITE}${canonical}"/>` : ""}
 <script type="application/ld+json">${jsonld}</script>
 <link rel="stylesheet" href="${"/".repeat(0)}assets/css/main.css"/>
 </head><body><main class="container">${body}
-<p style="padding:1rem 0"><a class="btn btn-primary" href="../index.html">← Back to Utility Store</a></p>
+<p style="padding:1rem 0"><a class="btn btn-primary" href="../index.html">← Back to UV Store</a></p>
 </main></body></html>`;
 
 // Static PDPs: full product content for crawlers
@@ -114,7 +114,7 @@ for (const p of products) {
   <p><a class="btn btn-success" href="${esc(p.buy_meesho || "#")}" rel="nofollow sponsored">Buy on Meesho →</a>
      ${p.buy_amazon ? `<a class="btn btn-secondary" href="${esc(p.buy_amazon)}" rel="nofollow sponsored">See on Amazon.in →</a>` : ""}</p>
   <p style="color:var(--text-3);font-size:.85rem">Full interactive experience: <a href="../product.html?p=${encodeURIComponent(p.slug)}">open live product page</a></p>`;
-  await fs.writeFile(path.join(dir, "index.html"), pageShell(`${p.title} — ${rupee(p.price)} | Utility Store`, p.body, `/p/${p.slug}/`, body, jsonld));
+  await fs.writeFile(path.join(dir, "index.html"), pageShell(`${p.title} — ${rupee(p.price)} | UV Store`, p.body, `/p/${p.slug}/`, body, jsonld));
 }
 
 // Static post pages
@@ -136,7 +136,7 @@ for (const post of posts) {
     return p ? `<li><a href="../p/${encodeURIComponent(s)}/">${esc(p.title)}</a> — ${rupee(p.price)}</li>` : "";
   }).join("")}</ul>` : ""}
   <p style="color:var(--text-3);font-size:.85rem">Full article: <a href="../post.html?post=${encodeURIComponent(post.slug)}">open live review</a></p>`;
-  await fs.writeFile(path.join(dir, "index.html"), pageShell(`${post.title} | Utility Store`, post.body.slice(0, 150), `/review/${post.slug}/`, body, jsonld));
+  await fs.writeFile(path.join(dir, "index.html"), pageShell(`${post.title} | UV Store Reviews`, post.body.slice(0, 150), `/review/${post.slug}/`, body, jsonld));
 }
 
 // ---------- 4. sitemap + robots + rss ----------
@@ -150,7 +150,7 @@ if (SITE) {
   await fs.writeFile(path.join(DIST, "robots.txt"),
     `User-agent: *\nAllow: /\nDisallow: /admin/\nSitemap: ${SITE}/sitemap.xml\n`);
   await fs.writeFile(path.join(DIST, "feed.xml"),
-    `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel><title>Utility Store Reviews</title><link>${SITE}</link><description>Product reviews &amp; deal alerts</description>\n` +
+    `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0"><channel><title>UV Store Reviews</title><link>${SITE}</link><description>Product reviews &amp; deal alerts</description>\n` +
     posts.map(p => `  <item><title>${esc(p.title)}</title><link>${SITE}/review/${encodeURIComponent(p.slug)}/</link><pubDate>${new Date(p.added || Date.now()).toUTCString()}</pubDate><description>${esc(p.body.slice(0, 300))}</description></item>`).join("\n") +
     `\n</channel></rss>\n`);
 }

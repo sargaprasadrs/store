@@ -105,9 +105,9 @@
     
     top.innerHTML = `
       <div class="header-brand-wrap">
-        <a class="logo" href="./index.html" aria-label="UVStore">
+        <a class="logo" href="./index.html" aria-label="UV Store">
           <img src="assets/img/icon.svg" alt="" class="logo-icon" width="32" height="32"/>
-          <span>UV<span class="text-cinnabar">STORE</span></span>
+          <span>UV <span class="text-cinnabar">STORE</span></span>
         </a>
       </div>
 
@@ -269,7 +269,7 @@
         <div class="footer-top-row">
           <div class="footer-brand">
             <img src="assets/img/icon.svg" alt="" width="26" height="26"/>
-            <span>UV<span class="text-cinnabar">STORE</span></span>
+            <span>UV <span class="text-cinnabar">STORE</span></span>
           </div>
 
           <nav class="footer-links" aria-label="Footer navigation">
@@ -306,7 +306,7 @@
         </div>
 
         <div class="footer-bottom-row">
-          <div>&copy; ${new Date().getFullYear()} UtilixVerse. Curated products & honest reviews.</div>
+          <div>&copy; ${new Date().getFullYear()} UV Store. Curated products &amp; honest reviews.</div>
           <div class="footer-disclosure" id="footer-disclosure">
             ${(window.BL && window.BL.affiliate ? window.BL.affiliate.DISCLOSURE : "As an affiliate, we earn from qualifying purchases at no extra cost to you.")}
           </div>

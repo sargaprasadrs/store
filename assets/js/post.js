@@ -85,7 +85,7 @@
       return;
     }
 
-    document.title = `${post.title} | UVStore Reviews`;
+    document.title = `${post.title} | UV Store Reviews`;
 
     // Render breadcrumbs
     const crumbs = document.getElementById("article-crumbs");
