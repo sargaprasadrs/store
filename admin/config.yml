@@ -3,17 +3,12 @@
 # (compatible with Decap CMS as a fallback backend)
 # ============================================================
 
-# Where the site is published — used by the CMS for previews & links
-site_url: https://CHANGE-ME.github.io/utility-store
-logo_url: https://CHANGE-ME.github.io/utility-store/assets/img/favicon.svg
+site_url: https://store.utilixverse.com
+logo_url: https://store.utilixverse.com/assets/img/icon.svg
 
 backend:
-  # Sveltia CMS supports GitHub device-flow login with a fine-grained
-  # Personal Access Token (no auth worker needed). For multi-editor
-  # OAuth later, deploy sveltia-cms-auth on Cloudflare Workers and set:
-  # auth_endpoint: auth
   name: github
-  repo: CHANGE-ME/utility-store
+  repo: sargaprasadrs/store
   branch: main
 
 # Drafts become pull requests; "Publish" in the CMS merges them.

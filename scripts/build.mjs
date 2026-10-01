@@ -73,7 +73,8 @@ await fs.writeFile(path.join(ROOT, "data", "index.json"), JSON.stringify(snapsho
 await fs.rm(DIST, { recursive: true, force: true });
 await fs.mkdir(DIST, { recursive: true });
 for (const entry of ["index.html", "category.html", "product.html", "reviews.html", "post.html", "about.html",
-                     "admin", "assets", "data", "media", "plan.md", "README.md"]) {
+                     "admin", "assets", "data", "media", "plan.md", "README.md", "CNAME",
+                     "favicon.ico", "favicon.svg", "icon.svg", "icon-light.svg", "icon-192.png", "icon-512.png"]) {
   try { await fs.cp(path.join(ROOT, entry), path.join(DIST, entry), { recursive: true }); }
   catch (_) { console.warn("skip:", entry); }
 }

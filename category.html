@@ -3,36 +3,41 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Shop — Utility Store</title>
-  <meta name="description" content="Browse all curated products by category, price and rating."/>
+  <title>Catalog — UtilixVerse Store</title>
+  <meta name="description" content="Browse curated utility gear, gadgets, and products by category, rating, and deals."/>
+  <link rel="icon" href="favicon.ico" sizes="any"/>
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml"/>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"/>
   <link rel="stylesheet" href="assets/css/main.css"/>
 </head>
 <body>
   <main class="container">
     <nav class="crumbs" aria-label="Breadcrumb">
-      <a href="./index.html">Home</a><span class="sep">/</span><span id="crumb-cat">All</span>
+      <a href="./index.html">Home</a><span class="sep">/</span><span id="crumb-cat">Catalog</span>
     </nav>
-    <h1 class="page-title" id="page-title">All products</h1>
-    <p class="page-sub" id="page-sub"></p>
+    <h1 class="page-title" id="page-title">All Products</h1>
+    <p class="page-sub" id="page-sub">Explore our full catalog of hand-tested gear.</p>
 
     <div class="toolbar">
       <span class="result-count" id="result-count">Loading…</span>
-      <div class="chip-row" id="cat-chips" style="display:flex;gap:.4rem;flex-wrap:wrap"></div>
-      <select class="chip" id="rating-select" aria-label="Minimum rating">
-        <option value="0">Any rating</option>
-        <option value="3">3★ &amp; up</option>
-        <option value="4">4★ &amp; up</option>
-        <option value="4.5">4.5★ &amp; up</option>
-      </select>
-      <select class="chip" id="sort-select" aria-label="Sort products">
-        <option value="new">Newest</option>
-        <option value="price-asc">Price: Low → High</option>
-        <option value="price-desc">Price: High → Low</option>
-        <option value="rating">Top rated</option>
-        <option value="discount">Biggest discount</option>
-      </select>
+      <div class="chip-row" id="cat-chips" style="display:flex;gap:0.4rem;flex-wrap:wrap"></div>
+      <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap">
+        <select class="chip" id="rating-select" aria-label="Minimum rating">
+          <option value="0">Any Rating</option>
+          <option value="3">3★ &amp; up</option>
+          <option value="4">4★ &amp; up</option>
+          <option value="4.5">4.5★ &amp; up</option>
+        </select>
+        <select class="chip" id="sort-select" aria-label="Sort products">
+          <option value="new">Newest First</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+          <option value="rating">Top Rated</option>
+          <option value="discount">Biggest Discount</option>
+        </select>
+      </div>
     </div>
 
     <div class="grid-products" id="plp-grid"></div>
@@ -40,12 +45,13 @@
 
   <script src="assets/js/config.js"></script>
   <script src="assets/js/data.js"></script>
-  <script src="assets/js/ui.js"></script>
   <script src="assets/js/cart.js"></script>
   <script src="assets/js/affiliate.js"></script>
+  <script src="assets/js/ui.js"></script>
   <script src="assets/js/catalog.js"></script>
   <script>
-    window.BL.ui.renderHeader("shop");
+    window.BL.ui.renderHeader("catalog");
+    window.BL.ui.renderFooter();
     window.BL.ui.updateCartBadge();
     window.BL.catalog.renderPLP();
   </script>

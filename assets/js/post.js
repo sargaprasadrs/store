@@ -1,8 +1,6 @@
 /* ============================================================
-   Utility Store — post.js (Markdown renderer + inline product cards)
-   marked.js from CDN renders the review body; we inject affiliate
-   product cards for every slug listed in the post frontmatter.
-   Requires: data.js, ui.js, catalog.js, affiliate.js
+   UtilixVerse Store — post.js (Markdown renderer + review cards)
+   Matches UtilixVerse styling & components.
    ============================================================ */
 (function () {
   "use strict";
@@ -19,29 +17,37 @@
     });
   }
 
-  /* ---------- Reviews listing (reviews.html) ---------- */
+  /* ---------- Reviews Listing (reviews.html) ---------- */
   async function renderPostList(container, limit) {
-    await window.BL.data.load();
+    if (!container) return;
     const { posts } = await window.BL.data.load();
     container.innerHTML = "";
+    
     if (!posts.length) {
-      container.innerHTML = `<div class="empty-state">${ui().icon("book", 36)}
-        <h3>No reviews yet</h3><p>Publish your first review from the CMS — it appears here instantly.</p></div>`;
+      container.innerHTML = `
+        <div class="empty-state" style="grid-column: 1 / -1;">
+          <div class="empty-state-icon">${ui().icon("book", 28)}</div>
+          <h3>No Reviews Published Yet</h3>
+          <p>Our editors are writing detailed hands-on reviews and comparisons. Check back soon or explore our utilities.</p>
+          <div class="empty-actions">
+            <a href="https://utilixverse.com" class="btn btn-primary" target="_blank" rel="noopener">Explore UtilixVerse Utilities</a>
+            <a href="./category.html" class="btn btn-outline">Browse Catalog</a>
+          </div>
+        </div>`;
       return;
     }
+
     const grid = document.createElement("div");
     grid.className = "grid-posts";
     const shown = limit ? posts.slice(0, limit) : posts;
-    if (!shown.length) {
-      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">${ui().icon("book", 30)}<h3>No reviews yet</h3></div>`;
-    }
+
     shown.forEach(post => {
       const card = document.createElement("article");
       card.className = "card post-card";
-      const hero = post.hero || "assets/img/placeholder.svg";
+      const hero = post.hero || "assets/img/icon.svg";
       card.innerHTML = `
         <a class="po-media" href="./post.html?post=${encodeURIComponent(post.slug)}">
-          <img src="${hero}" alt="" loading="lazy"/>
+          <img src="${hero}" alt="${post.title}" loading="lazy"/>
         </a>
         <div class="po-body">
           <span class="po-type">${post.type}</span>
@@ -57,7 +63,7 @@
     container.appendChild(grid);
   }
 
-  /* ---------- Article page (post.html) ---------- */
+  /* ---------- Single Article Page (post.html) ---------- */
   async function renderArticle() {
     const root = document.getElementById("article-root");
     if (!root) return;
@@ -66,15 +72,43 @@
     const post = window.BL.data.getPost(slug);
 
     if (!post) {
-      root.innerHTML = `<div class="empty-state">${ui().icon("info", 36)}
-        <h3>Post not found</h3><p>It may have been unpublished in the CMS.</p>
-        <p style="margin-top:1rem"><a class="btn btn-primary" href="./reviews.html">All reviews</a></p></div>`;
+      root.innerHTML = `
+        <div class="empty-state" style="margin: 3rem auto;">
+          <div class="empty-state-icon">${ui().icon("info", 28)}</div>
+          <h3>Article Not Found</h3>
+          <p>This review may have been moved or unpublished. Browse all published reviews below.</p>
+          <div class="empty-actions">
+            <a class="btn btn-primary" href="./reviews.html">View All Reviews</a>
+            <a class="btn btn-outline" href="https://utilixverse.com" target="_blank" rel="noopener">UtilixVerse Tools</a>
+          </div>
+        </div>`;
       return;
     }
 
-    document.title = `${post.title} | Utility Store Reviews`;
+    document.title = `${post.title} | UtilixVerse Store Reviews`;
 
-    // verdict widget + pros/cons
+    // Render breadcrumbs
+    const crumbs = document.getElementById("article-crumbs");
+    if (crumbs) {
+      crumbs.innerHTML = `
+        <a href="./index.html">Home</a><span class="sep">/</span>
+        <a href="./reviews.html">Reviews</a><span class="sep">/</span>
+        <span>${post.title}</span>`;
+    }
+
+    // Title & Meta
+    const titleEl = document.getElementById("article-title");
+    if (titleEl) titleEl.textContent = post.title;
+
+    const metaEl = document.getElementById("article-meta");
+    if (metaEl) {
+      metaEl.innerHTML = `
+        <span class="po-type">${post.type}</span>
+        <span>${ui().fmtDate(post.added)}</span>
+        ${post.verdict_score ? `<span class="po-score">${ui().icon("star", 11)} ${post.verdict_score} / 5</span>` : ""}`;
+    }
+
+    // Verdict box & Pros/Cons
     const top = document.getElementById("article-top");
     if (top) {
       top.innerHTML = "";
@@ -82,65 +116,50 @@
         top.insertAdjacentHTML("beforeend", `
           <div class="verdict">
             <span class="v-num">${post.verdict_score}</span>
-            <span class="v-label">Our verdict score<br/>based on hands-on use</span>
+            <div class="v-label"><b>Verdict Score</b><br/><span style="color:var(--text-2);font-size:0.8rem">Based on testing & build analysis</span></div>
           </div>`);
       }
       const pills = document.createElement("div");
-      (post.pros || []).forEach(x => pills.insertAdjacentHTML("beforeend", `<span class="pill pro">${ui().icon("check", 11)} ${x}</span>`));
-      (post.cons || []).forEach(x => pills.insertAdjacentHTML("beforeend", `<span class="pill con">${ui().icon("x", 11)} ${x}</span>`));
+      (post.pros || []).forEach(x => pills.insertAdjacentHTML("beforeend", `<span class="pill pro">${ui().icon("check", 12)} ${x}</span>`));
+      (post.cons || []).forEach(x => pills.insertAdjacentHTML("beforeend", `<span class="pill con">${ui().icon("x", 12)} ${x}</span>`));
       if (pills.childNodes.length) {
         pills.classList.add("pill-list");
         top.appendChild(pills);
       }
     }
 
-    // hero image
+    // Hero image
     const hero = document.getElementById("article-hero");
     if (hero && post.hero) {
-      hero.src = post.hero; hero.alt = post.title; hero.style.display = "block";
+      hero.src = post.hero;
+      hero.alt = post.title;
+      hero.style.display = "block";
     }
 
-    // markdown body
+    // Markdown content body
     const bodyEl = document.getElementById("article-body");
-    try {
-      const marked = await loadMarked();
-      bodyEl.innerHTML = marked.parse(post.body || "");
-    } catch (_) {
-      bodyEl.innerHTML = `<p>${(post.body || "").replace(/\n\n/g, "</p><p>")}</p>`;
+    if (bodyEl) {
+      try {
+        const marked = await loadMarked();
+        bodyEl.innerHTML = marked.parse(post.body || "");
+      } catch (_) {
+        bodyEl.textContent = post.body || "";
+      }
     }
 
-    // affiliate disclosure note
-    bodyEl.insertAdjacentHTML("beforeend", `
-      <div class="a-note">${ui().icon("info", 14)}
-        <span>${post.affiliate_note || window.BL.affiliate.DISCLOSURE}</span>
-      </div>`);
-
-    // inline product cards with buy CTAs (the "ad" engine)
-    const inline = document.getElementById("inline-products");
-    if (inline) {
-      const slugs = post.products || [];
-      if (!slugs.length) { inline.remove(); return; }
-      inline.innerHTML = "";
-      slugs.forEach(s => {
-        const p = window.BL.data.getProduct(s);
-        if (!p) return;
-        const card = document.createElement("article");
-        card.className = "card";
-        card.style.padding = "1rem";
-        card.innerHTML = `
-          <a href="./product.html?p=${encodeURIComponent(p.slug)}">
-            <img src="${p.images[0] || "assets/img/placeholder.svg"}" alt="${p.title}"
-                 style="aspect-ratio:1;object-fit:cover;border-radius:8px;margin-bottom:.6rem" loading="lazy"/>
-          </a>
-          <a href="./product.html?p=${encodeURIComponent(p.slug)}" style="color:var(--text);font-weight:600;font-size:.9rem">${p.title}</a>
-          <div class="pc-rating" style="margin-top:.3rem">${ui().stars(p.rating)} <span>${p.rating || "—"}</span></div>
-          <div style="display:flex;align-items:baseline;gap:.5rem;margin:.4rem 0 .7rem">
-            <b style="font-size:1.05rem">${ui().money(p.price)}</b>
-            ${p.mrp > p.price ? `<span class="pc-mrp">${ui().money(p.mrp)}</span>` : ""}
-          </div>`;
-        card.appendChild(window.BL.affiliate.ctaButtons(p));
-        inline.appendChild(card);
-      });
+    // Inline product cards featured in this post
+    const prodBox = document.getElementById("article-products");
+    if (prodBox && (post.products || []).length) {
+      prodBox.innerHTML = `
+        <div class="section-head" style="margin-top:2.5rem;margin-bottom:1rem">
+          <h2 class="section-title">Products Featured in this Review</h2>
+        </div>
+        <div class="grid-products" id="post-prod-grid"></div>`;
+      const grid = document.getElementById("post-prod-grid");
+      for (const pSlug of post.products) {
+        const p = window.BL.data.getProduct(pSlug);
+        if (p) grid.appendChild(window.BL.catalog.productCard(p));
+      }
     }
   }
 
