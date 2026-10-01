@@ -85,7 +85,7 @@
       return;
     }
 
-    document.title = `${post.title} | UtilixVerse Store Reviews`;
+    document.title = `${post.title} | UVStore Reviews`;
 
     // Render breadcrumbs
     const crumbs = document.getElementById("article-crumbs");

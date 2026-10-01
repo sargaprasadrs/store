@@ -254,7 +254,7 @@
       return;
     }
 
-    document.title = `${product.title} — ${ui().money(product.price)} | UtilixVerse Store`;
+    document.title = `${product.title} — ${ui().money(product.price)} | UVStore`;
     const cat = window.BL.data.getCategory(product.category);
     const off = offPct(product);
     const images = (product.images && product.images.length) ? product.images : [PLACEHOLDER];

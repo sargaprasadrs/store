@@ -14,6 +14,6 @@ window.BAZAAR_CONFIG = {
   // How long fetched content stays fresh in the browser (ms)
   ttl: 5 * 60 * 1000,
   // Site title used in header/title tags (CMS "settings" can override)
-  siteName: "UtilixVerse Store",
+  siteName: "UVStore",
   tagline: "Smart picks. Honest reviews. Best utility gear & deals."
 };

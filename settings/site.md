@@ -1,5 +1,5 @@
 ---
-site_name: UtilixVerse Store
+site_name: UVStore
 tagline: Smart picks. Honest reviews. Best utility gear & deals.
 contact_email: contact@utilixverse.com
 contact_whatsapp: ""

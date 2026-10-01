@@ -105,11 +105,10 @@
     
     top.innerHTML = `
       <div class="header-brand-wrap">
-        <a class="logo" href="./index.html" aria-label="UtilixVerse Store">
+        <a class="logo" href="./index.html" aria-label="UVStore">
           <img src="assets/img/icon.svg" alt="" class="logo-icon" width="32" height="32"/>
-          <span>UTILIX<span class="text-cinnabar">VERSE</span></span>
+          <span>UV<span class="text-cinnabar">STORE</span></span>
         </a>
-        <span class="store-badge">Store</span>
       </div>
 
       <div class="search-wrapper" id="store-search-wrapper">
@@ -270,7 +269,7 @@
         <div class="footer-top-row">
           <div class="footer-brand">
             <img src="assets/img/icon.svg" alt="" width="26" height="26"/>
-            <span>UTILIX<span class="text-cinnabar">VERSE</span> STORE</span>
+            <span>UV<span class="text-cinnabar">STORE</span></span>
           </div>
 
           <nav class="footer-links" aria-label="Footer navigation">
